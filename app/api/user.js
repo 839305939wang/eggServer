@@ -4,9 +4,12 @@
 module.exports = (ctl)=>{
     return {
         "post":{
-            "/user/signIn" : ctl.user.signIn,
+            "/user/signIn" : ctl.passport.local,
             "/user/signUp" : ctl.user.signUp,  
-            "/user/signOut" : ctl.user.signOut 
+            "/user/signOut" : ctl.user.signOut,
+        },
+        "get":{
+            "/user/userInfo" : ctl.user.userInfo
         }  
     }
 }

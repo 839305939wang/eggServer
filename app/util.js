@@ -13,13 +13,35 @@ function initRouterMaps(prefix,map){
          for(let route in methods){
             let uri = path.join(prefix,route).split(path.sep).join('/');
             console.log(chalk.green(`[${method}]-->${uri}`))
-            router[method](uri,methods[route])
+            router[method.toLowerCase()](uri,methods[route])
          }
      }
    }
    
 }
 
+function mountPassportToController(keys,passport,controller){
+    if(!controller.passport){
+        controller.passport = {};
+    }
+    keys.forEach((key)=>{
+       const tips = `Begining mount passport-->:${key}`;
+       console.log(chalk.green(tips));
+       controller.passport[key] = passport.authenticate(key,{
+           session:false,
+           successRedirect:undefined
+       },(err)=>{
+           console.log("auth fail:",err)
+       });
+    })
+}
+
+function installPassport(passport,{verify}){
+    passport.verify(verify);
+}
+
 module.exports = {
-    initRouterMaps
+    initRouterMaps,
+    mountPassportToController,
+    installPassport
 }
