@@ -25,6 +25,11 @@ module.exports = {
     jwt : {
       enable: true,
       package: 'egg-jwt',
+    },
+
+    email : {
+        enable: true,
+        package: 'egg-email',
     }
     
     

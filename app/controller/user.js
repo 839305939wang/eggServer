@@ -32,7 +32,7 @@ class User extends controller{
      */
     async signOut(){
         console.log("用户退出")
-    }
+    };
     /**
      * 获取用户信息
      */
@@ -40,6 +40,36 @@ class User extends controller{
         const userinfo = await this.ctx.service.user.getUserInfo();
         userinfo?this.ctx.success(200,userinfo):"";
     }
+    
+    /**
+     * 发送激活邮件
+     */
+    async sendEmail(){
+        const template = `<a href = '${this.ctx.origin}/user/emailVerify?token=2313'>点击链接进行验证</a>`
+        const mailOptions = {
+            from: 'wang839305939@outlook.com',
+            to: '839305939@qq.com',
+            subject: 'hello world',
+            html: template
+        };  
+        const sendResult = await this.app.email.sendMail(mailOptions);
+        if(sendResult){
+            this.ctx.success(200,{},'邮件发送成功');
+        }else{
+            this.ctx.success(400,'邮件发送失败');
+        }
+    };
+    
+    /**
+     * 邮箱激活验证
+     */
+    emailVerify(){
+        console.info(chalk.green(`收到邮箱验证请求`));
+        this.ctx.success(200,{},'验证成功');
+    }
+
+
+
 }
 
 module.exports = User;

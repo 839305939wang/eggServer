@@ -46,5 +46,17 @@ module.exports = appInfo => {
       return Ramda.contains(url,ignorePaths)
     }
   };
+
+  config.email = {
+    client: {
+       host: 'smtp-mail.outlook.com',
+       secureConnection: true,
+       port: 587,
+       auth: {
+           user: 'wang839305939@outlook.com',
+           pass: '839305939wang'
+       }
+    }
+  }
   return config;
 };
